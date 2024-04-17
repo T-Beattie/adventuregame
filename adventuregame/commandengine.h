@@ -21,13 +21,13 @@ struct Action {
 class CommandEngine {
 public:
 	CommandEngine() = default;
-	CommandEngine(Player& player);
+	CommandEngine(Player* player, bool* game_running);
 	void processCommand(std::string command);
 private:
-	int findCommand(std::string command);
 	void processActionMap();
 
 	Player* player;
+	bool* is_game_running;
 	std::vector<Action> action_map;
 
 };

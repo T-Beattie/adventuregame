@@ -40,3 +40,17 @@ std::string Player::getLocation()
 	
 	return "At Location - " + current_cell->description;
 }
+
+const void Player::showInventory()
+{
+	std::cout << "---------------------\n";
+	std::cout << "-     Inventory     -\n";
+	std::cout << "---------------------\n\n";
+
+	int count = 1;
+	for (auto item : inventory) {
+		std::cout << count << ". " << item << "\n";
+		++count;
+	}
+	std::cout << "---------------------" << std::endl;
+}

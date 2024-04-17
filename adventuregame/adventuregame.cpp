@@ -23,16 +23,16 @@ int main()
 	std::string name;
 
 	//std::cin >> name;
-
+	bool game_running{ true };
 	Player player("name", "Fun", new_map);
-	CommandEngine commandEngine(player);
+	CommandEngine commandEngine(&player, &game_running);
 	
 	int location {0};
-	bool gameRunning{ true };
+	
 
-	system("CLS");
+	//system("CLS");
 
-	while (gameRunning) {
+	while (game_running) {
 		std::string input;
 		std::cout << "What would you like to do?\n";
 		std::getline(std::cin, input);

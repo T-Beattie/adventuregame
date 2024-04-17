@@ -8,7 +8,41 @@
         0
       ],
       "description": "Start Area",
-      "event": "You awaken to find a grassy clearing.",
+      "event": {
+        "type": "puzzle",
+        "completed": false,
+        "blocks_commands": {
+          "move_north": "you try to open the door, it wont budge!"
+        },
+        "actions": {
+          "examine": {
+            "door": {
+              "0": "you notice a door it's locked! maybe a key would fit in it.",
+              "1": "The door is unlocked."
+            },
+            "bucket": { "0": "its a small bucket" },
+            "axe": { "0": "its a sharp axe" }
+          },
+          "take": {
+            "bucket": "",
+            "axe": "",
+            "key": ""
+          },
+          "use":{
+            "key": {
+              "door": {
+                "0": "you use the key in the door, it works! the door is unlocked",
+                "1": "The key has no affect, the door is already unlocked",
+                "completes_puzzle": "true"
+              },
+              "bucket": {
+                "description": "are you stupid!",
+                "completes_puzzle": "false"
+              }
+            }
+          } 
+        }
+      },
       "paths": [
         "north",
         "east"
@@ -20,7 +54,7 @@
         0
       ],
       "description": "forest area",
-      "event": "none",
+      "event": {},
       "paths": [
         "north"
       ]
@@ -31,7 +65,7 @@
         1
       ],
       "description": "deep forest area",
-      "event": "none",
+      "event": {},
       "paths": [
         "west"
       ]
@@ -42,7 +76,7 @@
         1
       ],
       "description": "waterfall area",
-      "event": "you notice a gushing waterfall",
+      "event": {},
       "paths": [
         "north"
       ]
@@ -53,7 +87,7 @@
         2
       ],
       "description": "Boss area",
-      "event": "fight",
+      "event": {},
       "paths": [
         "north"
       ]
@@ -64,7 +98,7 @@
         3
       ],
       "description": "End area",
-      "event": "End Game",
+      "event": {},
       "paths": [
         "north"
       ]

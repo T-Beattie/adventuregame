@@ -15,7 +15,7 @@
   },
   "use": {
     "action_name": "use",
-    "synonyms": [ "examine" ]
+    "synonyms": [ "use", "apply" ]
   },
   "take": {
     "action_name": "take",
@@ -24,6 +24,9 @@
   "quit": {
     "action_name": "quit",
     "synonyms": [ "quit", "exit" ]
+  },
+  "inventory": {
+    "action_name": "inventory",
+    "synonyms": ["inventory", "bag", "inv"]
   }
-
 }

@@ -10,23 +10,34 @@
 // for convenience
 using json = nlohmann::json;
 
+
+class Event {
+public:
+	std::string type;
+	bool completed{ false };
+	std::map<std::string, std::string> blocks_command;
+	std::map<std::string, std::map<std::string, std::string>> examine_actions;
+	std::map<std::string, std::string> take_actions;
+	std::map<std::string, std::map<std::string, std::map<std::string, std::string>>> use_actions;
+
+};
+
 class Cell {
 public:
 	Cell() = default;
-	Cell(int x, int y, std::string description, std::string event, std::list<std::string> paths) : 
+	Cell(int x, int y, std::string description, Event event, std::list<std::string> paths) : 
 		x(x), y(y), description(description), event(event), paths(paths) {};
 	std::string description;
 	int x, y;
-private:	
-	std::string event;
+	Event event;
+private:		
 	std::list<std::string> paths;
 };
 
 class Map {
 	
 private:
-	std::vector<Cell> _map;	
-	std::map<std::string, Cell> _newMap;
+	std::map<std::string, Cell> _map;
 
 public:
 	std::string map_name;
@@ -34,6 +45,5 @@ public:
 
 	Map(){};
 	void buildMap();
-	const std::string getCellLocation(const int x, const int y);
 	Cell *getCell(int x, int y);
 };

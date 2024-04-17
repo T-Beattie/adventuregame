@@ -11,25 +11,32 @@ void Map::buildMap()
 
 	// Parse Cells from JSON into individual Cell objects, bind them to the map	
 	for (auto dict : data["cells"]) {
+		// build up the event
+
+		Event new_event;		
+
+		if (!dict["event"].empty()) {
+			auto event = dict["event"];
+			new_event.type = event["type"];
+			new_event.completed = event["completed"];
+			new_event.blocks_command = event["blocks_commands"];
+
+			new_event.examine_actions = event["actions"]["examine"];
+			new_event.take_actions = event["actions"]["take"];
+			new_event.use_actions = event["actions"]["use"];			
+		}
+
 		Cell new_cell(
 			dict["location"][0],
 			dict["location"][1],
 			dict["description"],
-			dict["event"],
+			new_event,
 			dict["paths"]
 		);
 		std::string coords = std::to_string(new_cell.x) + "_" + std::to_string(new_cell.y);
-		_map.push_back(new_cell);
-		_newMap.insert({ coords,new_cell });
+		_map.insert({ coords,new_cell });
 	}	
 	int i = 0;
-}
-
-const std::string Map::getCellLocation(const int x, const int y)
-{
-	int index = y * 2 + x;
-	Cell current_cell = _map.at(index);
-	return current_cell.description;
 }
 
 Cell* Map::getCell(int x, int y)
@@ -38,8 +45,8 @@ Cell* Map::getCell(int x, int y)
 	//int index = y * 2 + x;
 	//if (index <= _map.size())
 		//return &_map.at(index);
-	if (_newMap.count(coords))
-		return &_newMap[coords];
+	if (_map.count(coords))
+		return &_map[coords];
 	return nullptr;
 }
 
