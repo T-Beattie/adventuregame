@@ -1,20 +1,43 @@
 ﻿// adventuregame.cpp : Defines the entry point for the application.
-//
 
 #include "adventuregame.h"
-#include <nlohmann/json.hpp>
-#include <fstream>
-
-// for convenience
-using json = nlohmann::json;
 
 using namespace std;
 
 int main()
 {
-	cout << "Hello World" << endl;
-	std::ifstream f("example.json");
-	json data = json::parse(f);
-	std::cout << data.dump(4) << std::endl;
+	Map new_map;
+	new_map.buildMap();	
+
+	/*player.getLocation();
+	player.move(east);
+	player.getLocation();
+	player.move(north);
+	player.getLocation();
+	player.move(west);
+	player.getLocation();
+
+	player.move(north);
+	player.getLocation();*/
+	//std::cout << "Welcome, What is your name?" << std::endl;
+	std::string name;
+
+	//std::cin >> name;
+
+	Player player("name", "Fun", new_map);
+	CommandEngine commandEngine(player);
+	
+	int location {0};
+	bool gameRunning{ true };
+
+	system("CLS");
+
+	while (gameRunning) {
+		std::string input;
+		std::cout << "What would you like to do?\n";
+		std::getline(std::cin, input);
+		commandEngine.processCommand(input);			
+	}
+	
 	return 0;
 }

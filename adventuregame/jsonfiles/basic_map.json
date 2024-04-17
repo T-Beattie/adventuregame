@@ -1,0 +1,73 @@
+{
+  "map_name": "test_area",
+  "description": "A fun new adventure",
+  "cells": [
+    {
+      "location": [
+        0,
+        0
+      ],
+      "description": "Start Area",
+      "event": "You awaken to find a grassy clearing.",
+      "paths": [
+        "north",
+        "east"
+      ]
+    },
+    {
+      "location": [
+        1,
+        0
+      ],
+      "description": "forest area",
+      "event": "none",
+      "paths": [
+        "north"
+      ]
+    },
+    {
+      "location": [
+        1,
+        1
+      ],
+      "description": "deep forest area",
+      "event": "none",
+      "paths": [
+        "west"
+      ]
+    },
+    {
+      "location": [
+        0,
+        1
+      ],
+      "description": "waterfall area",
+      "event": "you notice a gushing waterfall",
+      "paths": [
+        "north"
+      ]
+    },
+    {
+      "location": [
+        0,
+        2
+      ],
+      "description": "Boss area",
+      "event": "fight",
+      "paths": [
+        "north"
+      ]
+    },
+    {
+      "location": [
+        0,
+        3
+      ],
+      "description": "End area",
+      "event": "End Game",
+      "paths": [
+        "north"
+      ]
+    }
+  ]
+}

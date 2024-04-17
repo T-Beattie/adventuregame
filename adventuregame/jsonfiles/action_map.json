@@ -1,0 +1,29 @@
+{
+  "move": {
+    "action_name": "move",
+    "synonyms": [ "move", "go", "travel", "walk", "run" ],
+    "actions": {
+      "north": [ "north", "up", "forward" ],
+      "south": [ "south", "down", "backwards" ],
+      "east": [ "east", "right" ],
+      "west": [ "west", "left" ]
+    }
+  },
+  "examine": {
+    "action_name": "examine",
+    "synonyms": [ "examine", "inspect", "check" ]
+  },
+  "use": {
+    "action_name": "use",
+    "synonyms": [ "examine" ]
+  },
+  "take": {
+    "action_name": "take",
+    "synonyms": [ "take", "grab" ]
+  },
+  "quit": {
+    "action_name": "quit",
+    "synonyms": [ "quit", "exit" ]
+  }
+
+}

@@ -6,3 +6,6 @@
 #include <iostream>
 
 // TODO: Reference additional headers your program requires here.
+#include "map/map.h"
+#include "characters/player.h"
+#include "commandengine.h"

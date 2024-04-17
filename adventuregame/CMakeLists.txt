@@ -8,10 +8,11 @@ FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download
 FetchContent_MakeAvailable(json)
 
 # Add in Json to exe file 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/jsonfiles/example.json ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/jsonfiles/basic_map.json ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/jsonfiles/action_map.json ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
 
 # Add source to this project's executable.
-add_executable (adventuregame "adventuregame.cpp" "adventuregame.h")
+add_executable (adventuregame "adventuregame.cpp" "adventuregame.h" "map/map.h" "map/map.cpp" "characters/character.h" "characters/character.cpp" "characters/player.h" "characters/player.cpp" "commandengine.h" "commandengine.cpp")
 
 target_link_libraries(adventuregame PRIVATE nlohmann_json::nlohmann_json)
 if (CMAKE_VERSION VERSION_GREATER 3.12)
