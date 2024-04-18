@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <map>
 #include <string>
 
 class Character {
@@ -10,5 +11,5 @@ private:
 	std::string name;
 	std::string description;
 	int health{ 10 };
-	std::vector<std::string> inventory;
+	std::map<std::string,std::string> inventory;
 };

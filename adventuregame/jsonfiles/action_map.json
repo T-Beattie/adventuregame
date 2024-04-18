@@ -27,6 +27,10 @@
   },
   "inventory": {
     "action_name": "inventory",
-    "synonyms": ["inventory", "bag", "inv"]
+    "synonyms": [ "inventory", "bag", "inv" ]
+  },
+  "give": {
+    "action_name": "give",
+    "synonyms":  ["give", "place"]
   }
 }

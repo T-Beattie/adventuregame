@@ -128,22 +128,47 @@ void CommandEngine::processCommand(std::string command)
 			}
 			player->focus = target;
 		}
+		else {
+			std::cout << "There is no " << target << " that interests you in this area." << std::endl;
+		}
 	}
 
 	if (action == "take") {
 		//check if target exists in take map
-		std::map<std::string, std::string> *take_map = &player->current_cell->event.take_actions;
+		std::map<std::string, std::string>* take_map = &player->current_cell->event.take_actions;
 		bool has_target = take_map->contains(target);
 		if (has_target) {
 			std::cout << "You take the " << target << " and store it in your bag." << std::endl;
 			// transfer the object from the event into the players inventory
-			take_map->erase(target);
-			player->inventory.push_back(target);	
+			player->inventory[target] = take_map->at(target);
+			take_map->erase(target);			
 			std::map<std::string, std::map<std::string, std::string>>*examine_map = &player->current_cell->event.examine_actions;
 			bool has_examine_target = examine_map->contains(target);
 			if (has_examine_target) {
 				examine_map->erase(target);
 			}
+		} else{
+			std::cout << "There is no " << target << " to take." << std::endl;
+		}
+	}
+
+	if (action == "give") {
+		std::map<std::string, std::map<std::string, std::map<std::string, std::string>>>* give_map = &player->current_cell->event.give_actions;
+		bool has_target = give_map->contains(target);
+		bool target_in_inventory = player->inventory.count(target); 
+
+		bool is_item_active;
+		std::istringstream(give_map->at(target).at(player->focus)["active"]) >> std::boolalpha >> is_item_active;
+		if (has_target && target_in_inventory && !is_item_active) {
+			// check focus
+			if (give_map->at(target).contains(player->focus)) {
+				std::cout << give_map->at(target).at(player->focus)["0"] << std::endl;
+				give_map->at(target).at(player->focus)["active"] = "true";
+				player->removeItemFromInventory(target);
+			}
+		}
+		else if (has_target && is_item_active) {
+			std::cout << give_map->at(target).at(player->focus)["1"] << std::endl;
 		}
 	}
 
@@ -158,7 +183,9 @@ void CommandEngine::processCommand(std::string command)
 	if (action == "use") {
 		std::map<std::string, std::map<std::string, std::map<std::string, std::string>>>* use_map = &player->current_cell->event.use_actions;
 		bool has_target = use_map->contains(target);
-		bool target_in_inventory = count(player->inventory.begin(), player->inventory.end(), target);
+		bool target_in_inventory = player->inventory.count(target);
+
+
 		if (has_target && target_in_inventory) {
 			// check focus
 			if (use_map->at(target).contains(player->focus)) {
@@ -167,6 +194,10 @@ void CommandEngine::processCommand(std::string command)
 					bool completed;
 					std::istringstream(use_map->at(target).at(player->focus)["completes_puzzle"]) >> std::boolalpha >> completed;
 					player->current_cell->event.completed = completed;
+
+					if (use_map->at(target).at(player->focus).count("give")) {
+						player->inventory[use_map->at(target).at(player->focus)["give"]] = "A useful item";
+					}
 				}
 				else {
 					std::cout << use_map->at(target).at(player->focus)["1"] << std::endl;
@@ -174,8 +205,15 @@ void CommandEngine::processCommand(std::string command)
 					
 			}
 		}
+		else if (has_target && !target_in_inventory && use_map->at(target).contains("none")) {
+
+			if (target.find("lever") != std::string::npos) {
+				std::cout << "dealing with a lever, lets work it" << '\n';
+				// now write in lever logic
+			}
+		}
 		else if (has_target && !target_in_inventory) {
-			std::cout << "You can do this! you do not have the item: " << target << ", in your inventory!" << std::endl;
+			std::cout << "You do not have the item: " << target << ", in your inventory!" << std::endl;
 		}
 	}
 }

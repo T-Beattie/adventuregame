@@ -19,6 +19,7 @@ public:
 	std::map<std::string, std::map<std::string, std::string>> examine_actions;
 	std::map<std::string, std::string> take_actions;
 	std::map<std::string, std::map<std::string, std::map<std::string, std::string>>> use_actions;
+	std::map<std::string, std::map<std::string, std::map<std::string, std::string>>> give_actions;
 
 };
 

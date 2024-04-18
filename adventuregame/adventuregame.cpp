@@ -25,10 +25,7 @@ int main()
 	//std::cin >> name;
 	bool game_running{ true };
 	Player player("name", "Fun", new_map);
-	CommandEngine commandEngine(&player, &game_running);
-	
-	int location {0};
-	
+	CommandEngine commandEngine(&player, &game_running);	
 
 	//system("CLS");
 

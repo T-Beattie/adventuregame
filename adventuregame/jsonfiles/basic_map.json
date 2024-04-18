@@ -12,35 +12,58 @@
         "type": "puzzle",
         "completed": false,
         "blocks_commands": {
-          "move_north": "you try to open the door, it wont budge!"
+          "move_north": "you try to move north, it wont budge!"
         },
         "actions": {
           "examine": {
-            "door": {
-              "0": "you notice a door it's locked! maybe a key would fit in it.",
-              "1": "The door is unlocked."
+            "mural": {
+              "0": "A lovely looking mural, has a sun on it"
             },
-            "bucket": { "0": "its a small bucket" },
-            "axe": { "0": "its a sharp axe" }
+            "knife": { "0": "you call that a knife!" },
+            "pot": { "0": "its a pot, it has a bird on it" },
+            "pedastal": { "0": "you see a pedastal with a plate on top, maybe it reacts to pressure" },
+            "wall": { "0": "Looks to have something stuck in it" },
+            "left lever": {"0": "Old and worn, looks like you can still pull it"}
           },
           "take": {
-            "bucket": "",
-            "axe": "",
-            "key": ""
+            "knife": "Small",
+            "pot": "A lovely pot with a bird on it",
+            "stone disk": ""
           },
-          "use":{
-            "key": {
-              "door": {
-                "0": "you use the key in the door, it works! the door is unlocked",
-                "1": "The key has no affect, the door is already unlocked",
-                "completes_puzzle": "true"
-              },
-              "bucket": {
-                "description": "are you stupid!",
-                "completes_puzzle": "false"
+          "give": {
+            "stone disk": {
+              "pedastal": {
+                "0": "you use the stone disk on the pedastal, the weight of the disk causes the pedastal to sink slightly",
+                "1": "the stone disk is already on the pedastal",
+                "active": "false"
               }
             }
-          } 
+          },
+          "use": {
+            "right lever": {
+              "none": {
+                "0": "You pull the right lever, it does something",
+                "possible_states": "sun bird cat snake rabbit",
+                "correct_state": "bird",
+                "completes_puzzle": "false"
+              }
+            },
+            "left lever": {
+              "none": {
+                "0": "You pull the left lever, it does something",
+                "possible_states": "sun bird cat snake rabbit",
+                "correct_state": "sun",
+                "completes_puzzle": "false"
+              }
+            },
+            "knife": {
+              "wall": {
+                "0": "you use the knife on the wall, and pry the object off",
+                "1": "theres nothing to do",
+                "give": "relic_1"
+              }
+            }
+          }
         }
       },
       "paths": [

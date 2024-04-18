@@ -16,10 +16,11 @@ public:
 	void move(direction direction);
 	std::string getLocation();
 	const void showInventory();
+	void removeItemFromInventory(std::string item);
 
 	std::string focus;
 	Cell* current_cell;
-	std::vector<std::string> inventory;
+	std::map<std::string, std::string> inventory;
 
 private:
 	int x{ 0 }, y{ 0 };

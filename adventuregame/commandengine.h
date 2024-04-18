@@ -23,6 +23,8 @@ public:
 	CommandEngine() = default;
 	CommandEngine(Player* player, bool* game_running);
 	void processCommand(std::string command);
+
+
 private:
 	void processActionMap();
 

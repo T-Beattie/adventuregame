@@ -1,4 +1,4 @@
-#include "player.h"
+﻿#include "player.h"
 
 void Player::move(direction direction)
 {
@@ -35,9 +35,7 @@ void Player::move(direction direction)
 }
 
 std::string Player::getLocation()
-{
-	//std::cout << "At Location [ " << x << ", " << y << "] - " << current_cell->description << std::endl;
-	
+{	
 	return "At Location - " + current_cell->description;
 }
 
@@ -45,12 +43,19 @@ const void Player::showInventory()
 {
 	std::cout << "---------------------\n";
 	std::cout << "-     Inventory     -\n";
-	std::cout << "---------------------\n\n";
+	std::cout << "---------------------\n";
 
 	int count = 1;
-	for (auto item : inventory) {
-		std::cout << count << ". " << item << "\n";
+	std::map<std::string, std::string>::iterator it;
+	for (it = inventory.begin(); it != inventory.end(); it++)
+	{
+		std::cout << count << ". "  << it->first << " - " << it->second << std::endl;
 		++count;
 	}
-	std::cout << "---------------------" << std::endl;
+	std::cout << "---------------------\n" << std::endl;
+}
+
+void Player::removeItemFromInventory(std::string item)
+{
+	inventory.erase(item);
 }

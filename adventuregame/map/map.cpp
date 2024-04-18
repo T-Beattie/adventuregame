@@ -23,7 +23,8 @@ void Map::buildMap()
 
 			new_event.examine_actions = event["actions"]["examine"];
 			new_event.take_actions = event["actions"]["take"];
-			new_event.use_actions = event["actions"]["use"];			
+			new_event.use_actions = event["actions"]["use"];	
+			new_event.give_actions = event["actions"]["give"];
 		}
 
 		Cell new_cell(
