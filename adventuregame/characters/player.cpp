@@ -1,9 +1,12 @@
 ﻿#include "player.h"
 
-std::string Player::move(direction direction)
+// Attempts to move the player in a certain direction. Will not if the direction doesnt contain a Cell
+std::string Player::Move(direction direction)
 {
 	int temp_x = x;
 	int temp_y = y;
+
+	// set our new coordinates
 	switch (direction)
 	{
 	case north:
@@ -21,44 +24,41 @@ std::string Player::move(direction direction)
 	default:
 		break;
 	}
-	// need to check if can go here first!
-	Cell *potential_cell = _map.getCell(temp_x, temp_y);
+
+	// Check to see if there is a cell where we want to go
+	Cell* potential_cell = _map->GetCell(temp_x, temp_y);
 	if (potential_cell != nullptr) {
 		x = temp_x;
 		y = temp_y;
 		current_cell = potential_cell;
 		focus = nullptr;
 		return "";
-	}		
+	}
 	else
 		return "There is no path in this direction, you must travel another way!";
 }
 
-std::string Player::getLocation()
-{	
-	return "At Location - " + current_cell->description;
-}
-
-const std::string Player::showInventory()
+// Displays the contents of the players inventory on screen
+const std::string Player::ShowInventory()
 {
-	std::string ostr;
-	ostr += "~~~~~~~~~~~~~~~~~~~~~~\n";
-	ostr += "~      Inventory     ~\n";
-	ostr += "~~~~~~~~~~~~~~~~~~~~~~\n";
+	std::string output_string{};
+	output_string += "~~~~~~~~~~~~~~~~~~~~~~\n";
+	output_string += "~      Inventory     ~\n";
+	output_string += "~~~~~~~~~~~~~~~~~~~~~~\n";
 
 	int count = 1;
 	std::map<std::string, Interactable>::iterator it;
 	for (it = inventory.begin(); it != inventory.end(); it++)
 	{
-		ostr += count + ". "  + it->first + " - " + it->second.description["0"] + "\n";
+		output_string += count + ". "  + it->first + " - " + it->second.description["0"] + "\n";
 		++count;
 	}
-	ostr += "---------------------\n";
+	output_string += "---------------------\n";
 
-	return ostr;
+	return output_string;
 }
 
-void Player::removeItemFromInventory(std::string item)
+void Player::RemoveItemFromInventory(std::string item)
 {
 	inventory.erase(item);
 }

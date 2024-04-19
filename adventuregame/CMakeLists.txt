@@ -12,7 +12,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/jsonfiles/basic_map.json ${CMAKE_CURR
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/jsonfiles/action_map.json ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
 
 # Add source to this project's executable.
-add_executable (adventuregame "adventuregame.cpp" "adventuregame.h" "map/map.h" "map/map.cpp" "characters/character.h" "characters/character.cpp" "characters/player.h" "characters/player.cpp" "commandengine.h" "commandengine.cpp" "map/interactable.h")
+add_executable (adventuregame "adventuregame.cpp" "adventuregame.h" "map/map.h" "map/map.cpp" "characters/character.h"  "characters/player.h" "characters/player.cpp" "commandengine.h" "commandengine.cpp" "map/interactable.h")
 
 target_link_libraries(adventuregame PRIVATE nlohmann_json::nlohmann_json)
 if (CMAKE_VERSION VERSION_GREATER 3.12)

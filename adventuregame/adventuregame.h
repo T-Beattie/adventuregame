@@ -1,7 +1,8 @@
 ﻿// adventuregame.h : Include file for standard system include files,
 // or project specific include files.
 
-#pragma once
+#ifndef ADVENTUREGAME_H_
+#define ADVENTUREGAME_H_
 
 #include <iostream>
 
@@ -11,3 +12,4 @@
 #include "commandengine.h"
 #include <cstdlib>
 
+#endif ADVENTUREGAME_H_
