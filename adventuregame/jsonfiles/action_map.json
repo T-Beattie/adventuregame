@@ -31,6 +31,10 @@
   },
   "give": {
     "action_name": "give",
-    "synonyms":  ["give", "place"]
+    "synonyms": [ "give", "place" ]
+  },
+  "help": {
+    "action_name": "help",
+    "synonyms": [ "help" ]
   }
 }

@@ -1,7 +1,7 @@
 {
   "map_name": "test_area",
   "start_location": [ 2, 0 ],
-  "description": "As you sit, weary and worn, amidst the shadows of the narrow alley, the cold bite of the night seeps through your threadbare cloak. A street rat, accustomed to the harsh realities of survival, you've long endured the sting of poverty and the indifference of society.\n\nWhispers drift through the narrow streets of the town. They speak of a path to the north, a route known to lead to the Golden Sun Arch. It's said that through the arch leads to untold riches, hidden away in the depths of some long-forgotten labyrinth.\n\nEach murmur of danger and wealth ignites a spark of adventure deep within you. The mundane existence you've grown accustomed to suddenly feels suffocating, and the allure of wealth beyond imagining is too much to bear.\n\nWith resolve hardening in your heart like steel, you make a decision. Tonight! You are out of here tonight! No more begging for scraps. No more struggling to find places to sleep. That treasure will be yours.\n\nYou leave behind the safety of the town and venture forth into the darkness. Ahead, a long journey north. It is almost light by the time you notice it in the distance. The archway..",
+  "description": "As you sit, weary and worn, amidst the shadows of the narrow alley, the cold bite of the night seeps through your threadbare cloak. A street rat, accustomed to the harsh realities of survival, you've long endured the sting of poverty and the indifference of society.\n\nWhispers drift through the narrow streets of the town. They speak of a path to the north, a route known to lead to the Golden Sun Arch. It's said that through the arch leads to untold riches, hidden away in the depths of some long-forgotten labyrinth.\n\nEach murmur of danger and wealth ignites a spark of adventure deep within you. The mundane existence you've grown accustomed to suddenly feels suffocating, and the allure of wealth beyond imagining is too much to bear.\n\nWith resolve hardening in your heart like steel, you make a decision. Tonight! You are out of here tonight! No more begging for scraps. No more struggling to find places to sleep. That treasure will be yours.\n\nYou leave behind the safety of the town and venture forth into the darkness. Ahead, a long journey north. It is almost light by the time you notice it in the distance. The archway..  (Type help to see a list of useful commands)",
   "cells": [
     {
       "location": [ 2, 0 ],
@@ -10,6 +10,7 @@
       "event": {
         "type": "puzzle",
         "completed": {},
+        "completed_text": "",
         "blocks_commands": {},
         "interactables": {
           "arch": {
@@ -32,6 +33,7 @@
       "event": {
         "type": "puzzle",
         "completed": {},
+        "completed_text": "",
         "blocks_commands": {},
         "interactables": {
           "stone disk": {
@@ -63,6 +65,7 @@
       "event": {
         "type": "puzzle",
         "completed": {},
+        "completed_text": "",
         "blocks_commands": {},
         "interactables": {
           "fishing rod": {
@@ -103,6 +106,7 @@
       "event": {
         "type": "puzzle",
         "completed": {},
+        "completed_text": "",
         "blocks_commands": {},
         "interactables": {
           "backpack": {
@@ -143,6 +147,7 @@
       "event": {
         "type": "puzzle",
         "completed": {},
+        "completed_text": "",
         "blocks_commands": {},
         "interactables": {}
       },
@@ -155,6 +160,7 @@
       "event": {
         "type": "puzzle",
         "completed": {},
+        "completed_text": "",
         "blocks_commands": {},
         "interactables": {
           "snake": {
@@ -177,6 +183,7 @@
       "event": {
         "type": "puzzle",
         "completed": {},
+        "completed_text": "",
         "blocks_commands": {},
         "interactables": {
           "armour": {
@@ -208,6 +215,7 @@
       "event": {
         "type": "puzzle",
         "completed": {},
+        "completed_text": "",
         "blocks_commands": {},
         "interactables": {
           "Scarecrow": {
@@ -224,12 +232,13 @@
       "paths": [ "north", "east", "south" ]
     },
     {
-      "location": [ 4, 2 ],
+      "location": [ 5, 2 ],
       "title": "Babbling Stream",
       "description": "Beside the babbling stream, you discover intriguing objects buried in its banks. An ancient pot, weathered by time, speaks of civilizations long gone. Next to it, a curious cat idol, perhaps once worshipped, now rests silently. The stream flows swiftly, and you're unwilling to get wet crossing it. There is nowhere to go but back the way you came.",
       "event": {
         "type": "puzzle",
         "completed": {},
+        "completed_text": "",
         "blocks_commands": {},
         "interactables": {
           "pot": {
@@ -261,6 +270,7 @@
       "event": {
         "type": "puzzle",
         "completed": {},
+        "completed_text": "",
         "blocks_commands": {},
         "interactables": {
           "pillar": {
@@ -273,7 +283,7 @@
             "can_take": false,
             "visible": true
           },
-          "relic_1": {
+          "right relic": {
             "type": "normal",
             "description": {
               "0": "A half moon shaped relic, looks to be broken in half"
@@ -293,6 +303,7 @@
       "event": {
         "type": "puzzle",
         "completed": {},
+        "completed_text": "",
         "blocks_commands": {},
         "interactables": {
           "shrine": {
@@ -333,6 +344,7 @@
       "event": {
         "type": "puzzle",
         "completed": {},
+        "completed_text": "",
         "blocks_commands": {},
         "interactables": {
           "knife": {
@@ -344,7 +356,7 @@
               "pillar": {
                 "0": "you use the knife on the wall, and pry the object off",
                 "1": "theres nothing to do",
-                "give": "relic_1"
+                "give": "right relic"
               }
             },
             "state": "0",
@@ -385,11 +397,12 @@
     {
       "location": [ 2, 4 ],
       "title": "Temple Gardens",
-      "description": "As you wander through the ancient temple gardens, the passage of time reveals itself in the landscape - some plants withered, others flourishing in their place. Amidst the greenery, an azure blue herb stands out, a vivid contrast to the muted surroundings. To the north, the temple beckons with its mysteries. To the east and south, the temple outskirts are marked by solemn graves and weathered shrines. Surrounded by this quiet reverence, you're drawn deeper into the secrets of this sacred place.",
+      "description": "In the ancient temple gardens, you observe the passage of time as some plants wilt while others flourish. An azure blue herb stands out amidst the greenery. To the north, the grand temple awaits, its imposing door locked tight. Beside it, a pedestal with a pressure pad catches your eye, hinting at hidden mechanisms. To the east and south, the temple outskirts hold only solemn graves and weathered shrines. Amidst the tranquil beauty of the gardens, you ponder your next move, drawn by the mysteries that await beyond the temple's door.",
       "event": {
         "type": "puzzle",
-        "completed": {},
-        "blocks_commands": {},
+        "completed": { "pedestal": "1" },
+        "completed_text": "The stone disk now lies on the pedestal, weighing it down. The grand door is now open!",
+        "blocks_commands": { "move_north": "The grand door to the temple remains shut." },
         "interactables": {
           "herb": {
             "type": "normal",
@@ -398,6 +411,21 @@
             },
             "state": "0",
             "can_take": true,
+            "visible": true
+          },
+          "pedestal": {
+            "type": "normal",
+            "description": {
+              "0": "A stone platform"
+            },
+            "give": {
+              "stone disk": {
+                "0": "you use the stone disk on the pedastal, the weight of the disk causes the pedastal to sink slightly",
+                "1": "the stone disk is already on the pedastal"
+              }
+            },
+            "state": "0",
+            "can_take": false,
             "visible": true
           }
         }
@@ -411,6 +439,7 @@
       "event": {
         "type": "puzzle",
         "completed": {},
+        "completed_text": "",
         "blocks_commands": {},
         "interactables": {
           "helm": {
@@ -445,6 +474,7 @@
           "left switch": "cat",
           "right switch": "sun"
         },
+        "completed_text": "With the dials in the correct position, the stone slab moves allowing you passage into the crypts",
         "blocks_commands": {
           "move_north": "you try to shove the stone slab, it wont budge!"
         },
@@ -490,10 +520,11 @@
     {
       "location": [ 1, 5 ],
       "title": "Temple Coffers",
-      "description": "You've done it! After countless trials and tribulations, you stand triumphant before the temple vault. With a deft hand and a sharp mind, you've unlocked its secrets, revealing a treasure trove beyond your wildest dreams. As the doors swing open, you're greeted by a dazzling sight—the gleam of gold stretching as far as the eye can see. Your prize, the envy of kings and queens, awaits you—the wealth of the entire kingdom now at your fingertips. With a heart full of triumph and gratitude, you step into your newfound fortune, ready to carve out your destiny with riches beyond measure.",
+      "description": "You've done it! After countless trials and tribulations, you stand triumphant before the temple vault. With a deft hand and a sharp mind, you've unlocked its secrets, revealing a treasure trove beyond your wildest dreams. As the doors swing open, you're greeted by a dazzling sight - the gleam of gold stretching as far as the eye can see. Your prize, the envy of kings and queens, awaits you - the wealth of the entire kingdom now at your fingertips. With a heart full of triumph and gratitude, you step into your newfound fortune, ready to carve out your destiny with riches beyond measure.",
       "event": {
         "type": "puzzle",
         "completed": {},
+        "completed_text": "",
         "blocks_commands": {},
         "interactables": {}
       },
@@ -506,10 +537,9 @@
       "event": {
         "type": "puzzle",
         "completed": {
-          "door": "2",
-          "relic_1": "1",
-          "relic": "1"
+          "door": "2"
         },
+        "completed_text": "With the two halfs of the relic now in the door. you heard a dull metal click. The door seems unlocked now.",
         "blocks_commands": {
           "move_west": "you try to open the door, it wont budge!"
         },
@@ -522,13 +552,13 @@
               "2": "The door has a full circle, maybe now I can go through"
             },
             "give": {
-              "relic": {
-                "0": "you the relic on the door it fits!",
-                "1": "the relic is already in the door"
+              "left relic": {
+                "0": "You place the left relic on the door it fits!",
+                "1": "The relic is already in the door"
               },
-              "relic_1": {
-                "0": "you the relic on the door it fits!",
-                "1": "the relic is already in the door"
+              "right relic": {
+                "0": "You place the right on the door it fits!",
+                "1": "The relic is already in the door"
               }
             },
             "state": "0",
@@ -542,13 +572,14 @@
     {
       "location": [ 4, 5 ],
       "title": "Crypts",
-      "description": "In the crypts, stone coffins fill the chamber. One stands slightly ajar, catching your attention. Inside, a skeleton clutches a half-moon-shaped relic. The sight sends a shiver down your spine. To the south, the path leads back to the burnt-down village.",
+      "description": "In the crypts, stone coffins fill the chamber. One stands slightly ajar, catching your attention. Inside, a skeleton clutches a half-moon-shaped relic that looks to be the left half of a whole. The sight sends a shiver down your spine. To the south, the path leads back to the burnt-down village.",
       "event": {
         "type": "puzzle",
         "completed": {},
+        "completed_text": "",
         "blocks_commands": {},
         "interactables": {
-          "relic": {
+          "left relic": {
             "type": "normal",
             "description": {
               "0": "A half moon shaped relic, looks to be broken in half"

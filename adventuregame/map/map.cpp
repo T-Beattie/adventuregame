@@ -20,7 +20,8 @@ void Map::buildMap()
 		if (!dict["event"].empty()) {
 			auto event = dict["event"];
 			new_event.type = event["type"];
-			new_event.completed = event["completed"];
+			//new_event.completed = event["completed"];
+			new_event.completed_event_text = event["completed_text"];
 			new_event.blocks_command = event["blocks_commands"];
 
 			for (auto& item : event["interactables"].items())

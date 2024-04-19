@@ -27,6 +27,29 @@ void CommandEngine::processActionMap()
 	}
 }
 
+std::string CommandEngine::getHelp()
+{
+	std::string help_string{ "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Commands Help ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"};
+	help_string += "       Keyword ( alternatives )		|                    Description                       |      Example\n";
+	help_string += "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+	help_string += "move (move, go, travel, walk, run)  | Lets you move in a N,E,S,W compass direction         | move north\n";
+	help_string += "----------------------------------------------------------------------------------------------------------------\n";
+	help_string += "use (use, apply, pull)              | Lets you use an object on your focus                 | use stone disk\n";
+	help_string += "----------------------------------------------------------------------------------------------------------------\n";
+	help_string += "examine (examine, inspect, check)   | Sets that object as your focus                       | examine pedestal\n";
+	help_string += "----------------------------------------------------------------------------------------------------------------\n";
+	help_string += "give (give, place)                  | Attempts to give your item to the focus              | give rock\n";
+	help_string += "----------------------------------------------------------------------------------------------------------------\n";
+	help_string += "take (take, grab)                   | Take an item you find and put it in your inventory   | take helm\n";
+	help_string += "----------------------------------------------------------------------------------------------------------------\n";
+	help_string += "inventory (invention, inv, bag)     | Displays your inventory                              | inventory\n";
+	help_string += "----------------------------------------------------------------------------------------------------------------\n";
+	help_string += "quit (quit, exit)                   | Exits the game                                       | quit\n";
+	help_string += "----------------------------------------------------------------------------------------------------------------\n";
+	help_string += "help (help)                         | Displays this information                            | help\n";
+	return help_string;
+}
+
 std::string CommandEngine::processCommand(std::string command)
 {
 	// split this string by the first space only
@@ -137,6 +160,10 @@ std::string CommandEngine::processCommand(std::string command)
 				player->focus = interactable_object;
 				return interactable_object->description["1"] ;
 			}
+			else if (interactable_object->state == "2" && interactable_object->description.contains("2")) {
+				player->focus = interactable_object;
+				return interactable_object->description["2"];
+			}
 			else if(interactable_object->type == "lever") {
 				player->focus = interactable_object;
 				return interactable_object->description["0"];
@@ -180,8 +207,23 @@ std::string CommandEngine::processCommand(std::string command)
 
 		if (target_in_focus && target_in_inventory) {
 			// display item 0 and change object state to 1
-			std::string answer = player->focus->give_actions.at(target)[player->focus->state];
-			player->focus->state = "1";
+			std::string answer = player->focus->give_actions.at(target)["0"];
+			if (player->focus->type == "normal") {
+				// we know the state is an int.
+				// check completion state, if has completion state allow to increment, else its 1.
+				// make sure focus is less than or equal to completion state
+				bool focus_has_completion_state = player->current_cell->event.completed.count(player->focus->name);
+				if (focus_has_completion_state) {
+					int completion_max = std::stoi(player->current_cell->event.completed[player->focus->name]);
+					int current_state = std::stoi(player->focus->state);
+					if (current_state < completion_max) {
+						++current_state;
+						player->focus->state = std::to_string(current_state);
+					}
+				}
+				else
+					player->focus->state = "1";
+			}
 			player->removeItemFromInventory(target);
 			return answer;
 		}else if (target_in_focus && !target_in_inventory && player->focus->state == "1") {
@@ -250,49 +292,14 @@ std::string CommandEngine::processCommand(std::string command)
 				return answer + interactable->use_actions.at("lever")[interactable->state];
 			}
 			else {
-				return "You can't use your " + target + " on " + interactable->name;
+				return "You can't use your " + target + " on nothing, try examining an object to focus on it.";
 			}
 		}
 	}
+	if (action == "help")
+		return getHelp();
 
 	return "";
-
-	/*if (action == "use") {
-		std::map<std::string, std::map<std::string, std::map<std::string, std::string>>>* use_map = &player->current_cell->event.use_actions;
-		bool has_target = use_map->contains(target);
-		bool target_in_inventory = player->inventory.count(target);
-
-
-		if (has_target && target_in_inventory) {
-			// check focus
-			if (use_map->at(target).contains(player->focus)) {
-				if (!player->current_cell->event.completed) {
-					std::cout << use_map->at(target).at(player->focus)["0"] << std::endl;
-					bool completed;
-					std::istringstream(use_map->at(target).at(player->focus)["completes_puzzle"]) >> std::boolalpha >> completed;
-					player->current_cell->event.completed = completed;
-
-					if (use_map->at(target).at(player->focus).count("give")) {
-						player->inventory[use_map->at(target).at(player->focus)["give"]] = "A useful item";
-					}
-				}
-				else {
-					std::cout << use_map->at(target).at(player->focus)["1"] << std::endl;
-				}
-					
-			}
-		}
-		else if (has_target && !target_in_inventory && use_map->at(target).contains("none")) {
-
-			if (target.find("lever") != std::string::npos) {
-				std::cout << "dealing with a lever, lets work it" << '\n';
-				// now write in lever logic
-			}
-		}
-		else if (has_target && !target_in_inventory) {
-			std::cout << "You do not have the item: " << target << ", in your inventory!" << std::endl;
-		}
-	}*/
 }
 
 const bool CommandEngine::isCellCompleted()
@@ -307,6 +314,7 @@ const bool CommandEngine::isCellCompleted()
 		if (player->current_cell->event.interactables[name].state != state)
 			return false;
 	}
+	std::cout << current_event.completed_event_text << std::endl;
 	return true;
 }
 

@@ -4,6 +4,12 @@
 
 using namespace std;
 
+#ifdef _WIN32
+#define CLEAR "cls"
+#else //In any other OS
+#define CLEAR "clear"
+#endif
+
 void wrap(std::string const& input, size_t width, std::ostream& os, size_t indent = 0) {
 	std::istringstream in(input);
 
@@ -21,11 +27,15 @@ void wrap(std::string const& input, size_t width, std::ostream& os, size_t inden
 	}
 }
 
-void CompleteGame(Player* player, CommandEngine* ce) {
+
+void completeGame(Player* player, CommandEngine* ce) {
 	// Testing
 	player->move(north);
 	player->move(east);
 	player->move(east);
+	player->move(south);
+	ce->processCommand("take stone disk");
+	player->move(north);
 	player->move(north);
 	player->move(north);
 	ce->processCommand("take knife");
@@ -46,7 +56,13 @@ void CompleteGame(Player* player, CommandEngine* ce) {
 	ce->processCommand("use knife");
 	player->move(east);
 	player->move(north);
+	ce->processCommand("examine pedestal");
+	ce->processCommand("use stone disk");
 	player->move(north);
+	ce->processCommand("examine door");
+	ce->processCommand("give relic_1");
+	ce->processCommand("give relic");
+	player->move(west);
 }
 
 int main()
@@ -54,28 +70,15 @@ int main()
 	Map new_map;
 	new_map.buildMap();	
 
-	/*player.getLocation();
-	player.move(east);
-	player.getLocation();
-	player.move(north);
-	player.getLocation();
-	player.move(west);
-	player.getLocation();
-
-	player.move(north);
-	player.getLocation();*/
 	//std::cout << "Welcome, What is your name?" << std::endl;
 	std::string name;
 
 	//std::cin >> name;
 	bool game_running{ true };
 	Player player("name", "Fun", new_map);
-	CommandEngine commandEngine(&player, &game_running);
-	
+	CommandEngine commandEngine(&player, &game_running);	
 
-	CompleteGame(&player, &commandEngine);
-
-	//system("CLS");
+	//completeGame(&player, &commandEngine);
 
 	int console_width = 100; 
 	std::string answer{ "" };
@@ -86,8 +89,8 @@ int main()
 	bool main_title_shown{ false };
 
 	while (game_running) {
-		if(main_title_shown)
-			system("CLS");
+		if (main_title_shown)
+			system(CLEAR);
 		int half_string_length = player.current_cell->title.length() / 2;
 		int half_output_width = console_width / 2;
 
@@ -96,8 +99,7 @@ int main()
 		std::cout << std::setfill('*') << std::setw(console_width) << '*' << std::endl;
 		std::cout << std::setfill(' ') << std::setw(leading_spaces) << player.current_cell->title << std::endl;
 		std::cout << std::setfill('*') << std::setw(console_width) << '*' << std::endl;
-		
-		//std::cout << std::left << std::setw(80 ) << player.current_cell->description << std::endl;
+		                           
 		wrap(player.current_cell->description, console_width, std::cout, 0);
 		std::cout << "\n\n" << std::setfill('*') << std::setw(console_width) << '*' << "\n\n" << std::endl;
 

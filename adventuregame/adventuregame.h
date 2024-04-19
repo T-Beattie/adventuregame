@@ -9,3 +9,5 @@
 #include "map/map.h"
 #include "characters/player.h"
 #include "commandengine.h"
+#include <cstdlib>
+

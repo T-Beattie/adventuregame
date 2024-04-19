@@ -27,6 +27,7 @@ std::string Player::move(direction direction)
 		x = temp_x;
 		y = temp_y;
 		current_cell = potential_cell;
+		focus = nullptr;
 		return "";
 	}		
 	else

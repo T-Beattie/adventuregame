@@ -26,8 +26,10 @@ public:
 	const bool isCellCompleted();
 
 
+
 private:
 	void processActionMap();
+	std::string getHelp();
 
 	Player* player;
 	bool* is_game_running;

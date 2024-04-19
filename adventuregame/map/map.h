@@ -18,7 +18,7 @@ public:
 	std::map<std::string, std::string> completed;
 	std::map<std::string, std::string> blocks_command;
 	std::map<std::string, Interactable> interactables;
-
+	std::string completed_event_text;
 };
 
 class Cell {
