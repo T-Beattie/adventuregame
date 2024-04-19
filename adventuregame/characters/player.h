@@ -12,15 +12,19 @@ enum direction {
 class Player : public Character {
 public:
 	Player() = delete;
-	Player(std::string name, std::string description, Map map) : Character(name, description), _map(map) { current_cell = _map.getCell(x, y); };
-	void move(direction direction);
+	Player(std::string name, std::string description, Map map) : Character(name, description), _map(map) { 
+		x = map.start_x;
+		y = map.start_y;
+		current_cell = _map.getCell(x, y); 		
+	};
+	std::string move(direction direction);
 	std::string getLocation();
-	const void showInventory();
+	const std::string showInventory();
 	void removeItemFromInventory(std::string item);
 
-	std::string focus;
+	Interactable* focus = nullptr;
 	Cell* current_cell;
-	std::map<std::string, std::string> inventory;
+	std::map<std::string, Interactable> inventory;
 
 private:
 	int x{ 0 }, y{ 0 };

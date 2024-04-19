@@ -1,130 +1,565 @@
 {
   "map_name": "test_area",
-  "description": "A fun new adventure",
+  "start_location": [ 2, 0 ],
+  "description": "As you sit, weary and worn, amidst the shadows of the narrow alley, the cold bite of the night seeps through your threadbare cloak. A street rat, accustomed to the harsh realities of survival, you've long endured the sting of poverty and the indifference of society.\n\nWhispers drift through the narrow streets of the town. They speak of a path to the north, a route known to lead to the Golden Sun Arch. It's said that through the arch leads to untold riches, hidden away in the depths of some long-forgotten labyrinth.\n\nEach murmur of danger and wealth ignites a spark of adventure deep within you. The mundane existence you've grown accustomed to suddenly feels suffocating, and the allure of wealth beyond imagining is too much to bear.\n\nWith resolve hardening in your heart like steel, you make a decision. Tonight! You are out of here tonight! No more begging for scraps. No more struggling to find places to sleep. That treasure will be yours.\n\nYou leave behind the safety of the town and venture forth into the darkness. Ahead, a long journey north. It is almost light by the time you notice it in the distance. The archway..",
   "cells": [
     {
-      "location": [
-        0,
-        0
-      ],
-      "description": "Start Area",
+      "location": [ 2, 0 ],
+      "title": "Golden Sun Archway",
+      "description": "Beneath the archway, with the golden sun symbol shining above, you face a choice. To the north lies adventure, promising excitement and danger. Everywhere else, endless fields stretch out, serene and untouched. It's a moment of decision, where comfort meets curiosity. Yet, with each heartbeat, the pull of the unknown grows stronger, urging you toward the path of adventure beyond the archway.",
       "event": {
         "type": "puzzle",
-        "completed": false,
-        "blocks_commands": {
-          "move_north": "you try to move north, it wont budge!"
-        },
-        "actions": {
-          "examine": {
-            "mural": {
-              "0": "A lovely looking mural, has a sun on it"
+        "completed": {},
+        "blocks_commands": {},
+        "interactables": {
+          "arch": {
+            "type": "normal",
+            "description": {
+              "0": "an ancient stone arch stands sentinel, adorned with intricate carvings weathered by time. At its zenith, a golden sun statue gleams."
             },
-            "knife": { "0": "you call that a knife!" },
-            "pot": { "0": "its a pot, it has a bird on it" },
-            "pedastal": { "0": "you see a pedastal with a plate on top, maybe it reacts to pressure" },
-            "wall": { "0": "Looks to have something stuck in it" },
-            "left lever": {"0": "Old and worn, looks like you can still pull it"}
-          },
-          "take": {
-            "knife": "Small",
-            "pot": "A lovely pot with a bird on it",
-            "stone disk": ""
-          },
-          "give": {
-            "stone disk": {
-              "pedastal": {
-                "0": "you use the stone disk on the pedastal, the weight of the disk causes the pedastal to sink slightly",
-                "1": "the stone disk is already on the pedastal",
-                "active": "false"
-              }
-            }
-          },
-          "use": {
-            "right lever": {
-              "none": {
-                "0": "You pull the right lever, it does something",
-                "possible_states": "sun bird cat snake rabbit",
-                "correct_state": "bird",
-                "completes_puzzle": "false"
-              }
+            "state": "0",
+            "can_take": false,
+            "visible": true
+          }
+        }
+      },
+      "paths": [ "north" ]
+    },
+    {
+      "location": [ 4, 0 ],
+      "title": "Vine Covered Ruins",
+      "description": "In the heart of the vine-covered ruins, you stand surrounded by the echoes of an ancient civilization.. Before you lies a heavy stone disk, maybe it was part of some primitive mechanism. Nearby, a cracked skull rests atop a small plinth, you wonder if there is any significance to it. Yet, as you survey your surroundings, you realise that in every direction, there is nowhere to go but to retrace your steps backwards.",
+      "event": {
+        "type": "puzzle",
+        "completed": {},
+        "blocks_commands": {},
+        "interactables": {
+          "stone disk": {
+            "type": "normal",
+            "description": {
+              "0": "A stone disk, weathered and substantial, appears as though it could be utilized to anchor or weigh down objects somewhere..."
             },
-            "left lever": {
-              "none": {
-                "0": "You pull the left lever, it does something",
-                "possible_states": "sun bird cat snake rabbit",
-                "correct_state": "sun",
-                "completes_puzzle": "false"
-              }
+            "state": "0",
+            "can_take": true,
+            "visible": true
+          },
+          "skull": {
+            "type": "normal",
+            "description": {
+              "0": "A skull, seems to hold silent secrets of the ruin's past, its empty sockets hinting at stories untold."
             },
-            "knife": {
-              "wall": {
+            "state": "0",
+            "can_take": true,
+            "visible": true
+          }
+        }
+      },
+      "paths": [ "north" ]
+    },
+    {
+      "location": [ 1, 1 ],
+      "title": "Lake clearing",
+      "description": "You find yourself in a clearing, a small lake glistens under the sunlight. Beside the serene waters, a simple wooden stool stands, a fishing rod leaning against it. Nearby, a flute rests amidst a patch of grass, you wonder if someone is around. To the north, towering redwoods reach skyward. To the east, the dense foliage of the forest beckons.",
+      "event": {
+        "type": "puzzle",
+        "completed": {},
+        "blocks_commands": {},
+        "interactables": {
+          "fishing rod": {
+            "type": "normal",
+            "description": {
+              "0": "A rickety fishing rod."
+            },
+            "state": "0",
+            "can_take": false,
+            "visible": true
+          },
+          "flute": {
+            "type": "normal",
+            "description": {
+              "0": "Could play a nice melody with this."
+            },
+            "state": "0",
+            "can_take": true,
+            "visible": true
+          },
+          "stool": {
+            "type": "normal",
+            "description": {
+              "0": "No time to rest."
+            },
+            "state": "0",
+            "can_take": false,
+            "visible": true
+          }
+        }
+      },
+      "paths": [ "north", "east" ]
+    },
+    {
+      "location": [ 2, 1 ],
+      "title": "Dense Forest",
+      "description": "In the dense forest's heart, you stumble upon a scene of mystery. An empty backpack lies abandoned, its contents scattered. Nearby, a broken sword and an arrow lodged in a tree hint at past struggles. Paths diverge – one to the west, leading to a distant lake, the other to the east, where the forest thins. The air grows heavy with unease as shadows deepen, concealing secrets within the woods' embrace.",
+      "event": {
+        "type": "puzzle",
+        "completed": {},
+        "blocks_commands": {},
+        "interactables": {
+          "backpack": {
+            "type": "normal",
+            "description": {
+              "0": "An empty backpack"
+            },
+            "state": "0",
+            "can_take": true,
+            "visible": true
+          },
+          "arrow": {
+            "type": "normal",
+            "description": {
+              "0": "An arrow, fat lot of good this will do without a bow"
+            },
+            "state": "0",
+            "can_take": true,
+            "visible": true
+          },
+          "sword": {
+            "type": "normal",
+            "description": {
+              "0": "it's broken!"
+            },
+            "state": "0",
+            "can_take": true,
+            "visible": true
+          }
+        }
+      },
+      "paths": [ "west", "east" ]
+    },
+    {
+      "location": [ 3, 1 ],
+      "title": "Light Forest",
+      "description": "In the light forest, all around you is a sea of trees and bushes, their greenery stretching endlessly. To the west, the forest appears denser, with shadows hinting at hidden mysteries. But as you turn your gaze to the east, you notice a change. The forest thins into  snaking vines and tangled undergrowth.",
+      "event": {
+        "type": "puzzle",
+        "completed": {},
+        "blocks_commands": {},
+        "interactables": {}
+      },
+      "paths": [ "west", "east" ]
+    },
+    {
+      "location": [ 4, 1 ],
+      "title": "Vine covered clearing",
+      "description": "In the vine-covered clearing, the twisting vines resemble a nest of snakes. Among them, you spot a real serpent, stealthily hidden, wary of the intruder. To the north, the vines thin out, revealing distant fields bathed in sunlight. To the south, ancient ruins are swallowed by the relentless growth of vegetation. Caught between the open fields and the mystery of the ruins, you pause, pondering your next move in this curious place",
+      "event": {
+        "type": "puzzle",
+        "completed": {},
+        "blocks_commands": {},
+        "interactables": {
+          "snake": {
+            "type": "normal",
+            "description": {
+              "0": "You don't want to risk getting near that snake"
+            },
+            "state": "0",
+            "can_take": false,
+            "visible": true
+          }
+        }
+      },
+      "paths": [ "north", "south" ]
+    },
+    {
+      "location": [ 1, 2 ],
+      "title": "Redwoods",
+      "description": "Entering the redwood forest, you're greeted by towering trees and the scent of pine. Sunlight filters through the dense canopy, casting dappled shadows. Among fallen leaves, discarded armour lies scattered, remnants of past battles. A glint of ruby, poking out from beneath the armour catches your eye. To the north, three massive pillars loom, their purpose unknown. To the south, a serene lake beckons through a clearing.",
+      "event": {
+        "type": "puzzle",
+        "completed": {},
+        "blocks_commands": {},
+        "interactables": {
+          "armour": {
+            "type": "normal",
+            "description": {
+              "0": "Battered and wrecked armour, this is of no use!"
+            },
+            "state": "0",
+            "can_take": true,
+            "visible": true
+          },
+          "ruby": {
+            "type": "normal",
+            "description": {
+              "0": "Deep red and shiny! could be useful"
+            },
+            "state": "0",
+            "can_take": true,
+            "visible": true
+          }
+        }
+      },
+      "paths": [ "north", "south" ]
+    },
+    {
+      "location": [ 4, 2 ],
+      "title": "Wheat Fields",
+      "description": "In the peaceful white wheat field, you're enveloped by tranquillity, almost forgetting your quest. A scarecrow stands amidst the golden stalks, unperturbed. Crows hover cautiously above, eyeing the sentinel below. To the south, a vine-covered clearing beckons, while to the east, the fields lead to a babbling stream. To the north, an area opens up, leading to foothills in the distance. Caught between curiosity and serenity, you pause, soaking in the calm of the moment before continuing on your journey.",
+      "event": {
+        "type": "puzzle",
+        "completed": {},
+        "blocks_commands": {},
+        "interactables": {
+          "Scarecrow": {
+            "type": "normal",
+            "description": {
+              "0": "A rather happy looking scarecrow!"
+            },
+            "state": "0",
+            "can_take": false,
+            "visible": true
+          }
+        }
+      },
+      "paths": [ "north", "east", "south" ]
+    },
+    {
+      "location": [ 4, 2 ],
+      "title": "Babbling Stream",
+      "description": "Beside the babbling stream, you discover intriguing objects buried in its banks. An ancient pot, weathered by time, speaks of civilizations long gone. Next to it, a curious cat idol, perhaps once worshipped, now rests silently. The stream flows swiftly, and you're unwilling to get wet crossing it. There is nowhere to go but back the way you came.",
+      "event": {
+        "type": "puzzle",
+        "completed": {},
+        "blocks_commands": {},
+        "interactables": {
+          "pot": {
+            "type": "normal",
+            "description": {
+              "0": "The pot looks worn and has a hole at the bottom!"
+            },
+            "state": "0",
+            "can_take": true,
+            "visible": true
+          },
+          "cat idol": {
+            "type": "normal",
+            "description": {
+              "0": "Looks like cats are revered around here. I'll need to keep that in mind"
+            },
+            "state": "0",
+            "can_take": true,
+            "visible": true
+          }
+        }
+      },
+      "paths": [ "north" ]
+    },
+    {
+      "location": [ 1, 3 ],
+      "title": "Giant Pillars",
+      "description": "Approaching the clearing, you're struck by three towering pillars, adorned with intricate carvings. In the centre pillar, a half-moon stone emits a faint glow, looks like you’d need a tool to pry it out. Markings hint at ancient knowledge. To the south, redwoods stand tall, while to the east, a temple's outskirts come into view. The air hums with sacred energy. Standing amidst the pillars, history's weight presses down, urging you to explore the mysteries of this place.",
+      "event": {
+        "type": "puzzle",
+        "completed": {},
+        "blocks_commands": {},
+        "interactables": {
+          "pillar": {
+            "type": "normal",
+            "description": {
+              "0": "The middle pillar has something stuck in it",
+              "1": "The middle pillar has a moon shaped indent in it"
+            },
+            "state": "0",
+            "can_take": false,
+            "visible": true
+          },
+          "relic_1": {
+            "type": "normal",
+            "description": {
+              "0": "A half moon shaped relic, looks to be broken in half"
+            },
+            "state": "0",
+            "visible": false,
+            "can_take": true
+          }
+        }
+      },
+      "paths": [ "east", "south" ]
+    },
+    {
+      "location": [ 2, 3 ],
+      "title": "Temple outskirts",
+      "description": "In the outskirts of the ancient temple, small shrines dot the landscape, each holding its own history. One shrine, adorned with a necklace and a ring, catches your eye. To the west loom three giant pillars, while to the north, the outskirts lead to the temple gardens. Reverence fills the air as you navigate this sacred space, mindful of the spirits that dwell within.",
+      "event": {
+        "type": "puzzle",
+        "completed": {},
+        "blocks_commands": {},
+        "interactables": {
+          "shrine": {
+            "type": "normal",
+            "description": {
+              "0": "An eerie shrine. Maybe I should leave it alone"
+            },
+            "state": "0",
+            "can_take": false,
+            "visible": true
+          },
+          "ring": {
+            "type": "normal",
+            "description": {
+              "0": "A nice golden ring."
+            },
+            "state": "0",
+            "can_take": true,
+            "visible": true
+          },
+          "necklace": {
+            "type": "normal",
+            "description": {
+              "0": "A silver necklace, looks like its missing a gemstone."
+            },
+            "state": "0",
+            "can_take": true,
+            "visible": true
+          }
+        }
+      },
+      "paths": [ "north", "west" ]
+    },
+    {
+      "location": [ 4, 3 ],
+      "title": "Foothills / Abandoned camp",
+      "description": "In the foothills, you stumble upon an abandoned campsite, untouched for some time. A knife and shield lie near one bedroll, while a stuffed toy rests beside another. To the south, wheat fields stretch out, and to the north, the scent of burning wood fills the air. Amongst the quiet of the camp, you're left pondering the stories left behind as you continue your journey.",
+      "event": {
+        "type": "puzzle",
+        "completed": {},
+        "blocks_commands": {},
+        "interactables": {
+          "knife": {
+            "type": "normal",
+            "description": {
+              "0": "A small knife"
+            },
+            "use": {
+              "pillar": {
                 "0": "you use the knife on the wall, and pry the object off",
                 "1": "theres nothing to do",
                 "give": "relic_1"
               }
-            }
+            },
+            "state": "0",
+            "can_take": true,
+            "visible": true
+          },
+          "shield": {
+            "type": "normal",
+            "description": {
+              "0": "A worn and battered shield."
+            },
+            "state": "0",
+            "can_take": true,
+            "visible": true
+          },
+          "bedroll": {
+            "type": "normal",
+            "description": {
+              "0": "Looks like a comfy place for a nap."
+            },
+            "state": "0",
+            "can_take": true,
+            "visible": true
+          },
+          "toy": {
+            "type": "normal",
+            "description": {
+              "0": "I wonder whose toy this was."
+            },
+            "state": "0",
+            "can_take": true,
+            "visible": true
           }
         }
       },
-      "paths": [
-        "north",
-        "east"
-      ]
+      "paths": [ "north", "south" ]
     },
     {
-      "location": [
-        1,
-        0
-      ],
-      "description": "forest area",
-      "event": {},
-      "paths": [
-        "north"
-      ]
+      "location": [ 2, 4 ],
+      "title": "Temple Gardens",
+      "description": "As you wander through the ancient temple gardens, the passage of time reveals itself in the landscape - some plants withered, others flourishing in their place. Amidst the greenery, an azure blue herb stands out, a vivid contrast to the muted surroundings. To the north, the temple beckons with its mysteries. To the east and south, the temple outskirts are marked by solemn graves and weathered shrines. Surrounded by this quiet reverence, you're drawn deeper into the secrets of this sacred place.",
+      "event": {
+        "type": "puzzle",
+        "completed": {},
+        "blocks_commands": {},
+        "interactables": {
+          "herb": {
+            "type": "normal",
+            "description": {
+              "0": "A weird blue herb. Maybe it has mystical properties."
+            },
+            "state": "0",
+            "can_take": true,
+            "visible": true
+          }
+        }
+      },
+      "paths": [ "north", "east", "south" ]
     },
     {
-      "location": [
-        1,
-        1
-      ],
-      "description": "deep forest area",
-      "event": {},
-      "paths": [
-        "west"
-      ]
+      "location": [ 3, 4 ],
+      "title": "Temple Outskirts Graves",
+      "description": "In the temple outskirts, graves stretch out in solemn rows. Propped on one, a battered helm and broken idol tell silent tales. To the west, the temple gardens offer tranquillity. To the east, a distant village beckons. Among the graves, you ponder the weight of history and mortality.",
+      "event": {
+        "type": "puzzle",
+        "completed": {},
+        "blocks_commands": {},
+        "interactables": {
+          "helm": {
+            "type": "normal",
+            "description": {
+              "0": "A battered helm, too big for my head anyway!"
+            },
+            "state": "0",
+            "can_take": true,
+            "visible": true
+          },
+          "broken idol": {
+            "type": "normal",
+            "description": {
+              "0": "A broken idol, its hard to make out what it is, maybe a cat?"
+            },
+            "state": "0",
+            "can_take": true,
+            "visible": true
+          }
+        }
+      },
+      "paths": [ "west", "east" ]
     },
     {
-      "location": [
-        0,
-        1
-      ],
-      "description": "waterfall area",
-      "event": {},
-      "paths": [
-        "north"
-      ]
+      "location": [ 4, 4 ],
+      "title": "Burnt Down Village",
+      "description": "You arrive at a burnt-down village, you survey the wreckage with a heavy heart. Amidst the devastation, you spot stairs heading north into a crypt, promising secrets buried within. Yet, your path is obstructed by a stone slab barring the doorway. Above, two switches adorn the wall, each with small dials displaying various symbols. The left switch bears a dog, rabbit, cat, and fish, while the right switch features a star, triangle, sun, and cross. To the north, the crypt beckons, while to the south, the foothills await. To the west, the temple outskirts call out to you. With the mystery before you, you ponder the significance of the symbols, uncertain of the path that lies ahead.",
+      "event": {
+        "type": "puzzle",
+        "completed": {
+          "left switch": "cat",
+          "right switch": "sun"
+        },
+        "blocks_commands": {
+          "move_north": "you try to shove the stone slab, it wont budge!"
+        },
+        "interactables": {
+          "left switch": {
+            "type": "lever",
+            "description": {
+              "0": "A switch of some kind, you can use it"
+            },
+            "use": {
+              "lever": {
+                "dog": "A dog symbol appears",
+                "rabbit": "A rabbit symbol appears",
+                "cat": "A cat symbol appears",
+                "fish": "A fish symbol appears"
+              }
+            },
+            "state": "dog",
+            "can_take": false,
+            "visible": true
+          },
+          "right switch": {
+            "type": "lever",
+            "description": {
+              "0": "A switch of some kind, you can use it"
+            },
+            "use": {
+              "lever": {
+                "star": "A star symbol appears",
+                "triangle": "A triangle symbol appears",
+                "sun": "A sun symbol appears",
+                "cross": "A cross symbol appears"
+              }
+            },
+            "state": "star",
+            "can_take": false,
+            "visible": true
+          }
+        }
+      },
+      "paths": [ "north", "south", "west" ]
     },
     {
-      "location": [
-        0,
-        2
-      ],
-      "description": "Boss area",
-      "event": {},
-      "paths": [
-        "north"
-      ]
+      "location": [ 1, 5 ],
+      "title": "Temple Coffers",
+      "description": "You've done it! After countless trials and tribulations, you stand triumphant before the temple vault. With a deft hand and a sharp mind, you've unlocked its secrets, revealing a treasure trove beyond your wildest dreams. As the doors swing open, you're greeted by a dazzling sight—the gleam of gold stretching as far as the eye can see. Your prize, the envy of kings and queens, awaits you—the wealth of the entire kingdom now at your fingertips. With a heart full of triumph and gratitude, you step into your newfound fortune, ready to carve out your destiny with riches beyond measure.",
+      "event": {
+        "type": "puzzle",
+        "completed": {},
+        "blocks_commands": {},
+        "interactables": {}
+      },
+      "paths": [ "east" ]
     },
     {
-      "location": [
-        0,
-        3
-      ],
-      "description": "End area",
-      "event": {},
-      "paths": [
-        "north"
-      ]
+      "location": [ 2, 5 ],
+      "title": "Temple",
+      "description": "In the lost temple's depths, you explore echoing halls, feeling the weight of history. To the left, a door awaits, In its centre hollowed out circle. To the south, the path leads back to the temple gardens. Reverence and curiosity fill you as you stand amidst ancient grandeur, ready to uncover its secrets.",
+      "event": {
+        "type": "puzzle",
+        "completed": {
+          "door": "2",
+          "relic_1": "1",
+          "relic": "1"
+        },
+        "blocks_commands": {
+          "move_west": "you try to open the door, it wont budge!"
+        },
+        "interactables": {
+          "door": {
+            "type": "normal",
+            "description": {
+              "0": "A door with a hollowed out circle",
+              "1": "A door with one half of the circle filled in",
+              "2": "The door has a full circle, maybe now I can go through"
+            },
+            "give": {
+              "relic": {
+                "0": "you the relic on the door it fits!",
+                "1": "the relic is already in the door"
+              },
+              "relic_1": {
+                "0": "you the relic on the door it fits!",
+                "1": "the relic is already in the door"
+              }
+            },
+            "state": "0",
+            "can_take": false,
+            "visible": true
+          }
+        }
+      },
+      "paths": [ "west", "south" ]
+    },
+    {
+      "location": [ 4, 5 ],
+      "title": "Crypts",
+      "description": "In the crypts, stone coffins fill the chamber. One stands slightly ajar, catching your attention. Inside, a skeleton clutches a half-moon-shaped relic. The sight sends a shiver down your spine. To the south, the path leads back to the burnt-down village.",
+      "event": {
+        "type": "puzzle",
+        "completed": {},
+        "blocks_commands": {},
+        "interactables": {
+          "relic": {
+            "type": "normal",
+            "description": {
+              "0": "A half moon shaped relic, looks to be broken in half"
+            },
+            "state": "0",
+            "can_take": true,
+            "visible": true
+          }
+        }
+      },
+      "paths": [ "south" ]
     }
   ]
 }

@@ -6,6 +6,7 @@
 #include <nlohmann/json.hpp>
 #include <fstream>
 #include <iostream>
+#include "interactable.h"
 
 // for convenience
 using json = nlohmann::json;
@@ -14,21 +15,19 @@ using json = nlohmann::json;
 class Event {
 public:
 	std::string type;
-	bool completed{ false };
+	std::map<std::string, std::string> completed;
 	std::map<std::string, std::string> blocks_command;
-	std::map<std::string, std::map<std::string, std::string>> examine_actions;
-	std::map<std::string, std::string> take_actions;
-	std::map<std::string, std::map<std::string, std::map<std::string, std::string>>> use_actions;
-	std::map<std::string, std::map<std::string, std::map<std::string, std::string>>> give_actions;
+	std::map<std::string, Interactable> interactables;
 
 };
 
 class Cell {
 public:
 	Cell() = default;
-	Cell(int x, int y, std::string description, Event event, std::list<std::string> paths) : 
-		x(x), y(y), description(description), event(event), paths(paths) {};
+	Cell(int x, int y, std::string title, std::string description, Event event, std::list<std::string> paths) : 
+		x(x), y(y), title(title), description(description), event(event), paths(paths) {};
 	std::string description;
+	std::string title;
 	int x, y;
 	Event event;
 private:		
@@ -43,6 +42,8 @@ private:
 public:
 	std::string map_name;
 	std::string map_description;
+	int start_x{ 0 };
+	int start_y{ 0 };
 
 	Map(){};
 	void buildMap();

@@ -22,7 +22,8 @@ class CommandEngine {
 public:
 	CommandEngine() = default;
 	CommandEngine(Player* player, bool* game_running);
-	void processCommand(std::string command);
+	std::string processCommand(std::string command);
+	const bool isCellCompleted();
 
 
 private:

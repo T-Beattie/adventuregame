@@ -1,6 +1,6 @@
 ﻿#include "player.h"
 
-void Player::move(direction direction)
+std::string Player::move(direction direction)
 {
 	int temp_x = x;
 	int temp_y = y;
@@ -27,11 +27,10 @@ void Player::move(direction direction)
 		x = temp_x;
 		y = temp_y;
 		current_cell = potential_cell;
+		return "";
 	}		
 	else
-		std::cout << "There is no path in this direction, you must travel another way!" << std::endl;
-
-	std::cout << getLocation() << std::endl;
+		return "There is no path in this direction, you must travel another way!";
 }
 
 std::string Player::getLocation()
@@ -39,20 +38,23 @@ std::string Player::getLocation()
 	return "At Location - " + current_cell->description;
 }
 
-const void Player::showInventory()
+const std::string Player::showInventory()
 {
-	std::cout << "---------------------\n";
-	std::cout << "-     Inventory     -\n";
-	std::cout << "---------------------\n";
+	std::string ostr;
+	ostr += "~~~~~~~~~~~~~~~~~~~~~~\n";
+	ostr += "~      Inventory     ~\n";
+	ostr += "~~~~~~~~~~~~~~~~~~~~~~\n";
 
 	int count = 1;
-	std::map<std::string, std::string>::iterator it;
+	std::map<std::string, Interactable>::iterator it;
 	for (it = inventory.begin(); it != inventory.end(); it++)
 	{
-		std::cout << count << ". "  << it->first << " - " << it->second << std::endl;
+		ostr += count + ". "  + it->first + " - " + it->second.description["0"] + "\n";
 		++count;
 	}
-	std::cout << "---------------------\n" << std::endl;
+	ostr += "---------------------\n";
+
+	return ostr;
 }
 
 void Player::removeItemFromInventory(std::string item)

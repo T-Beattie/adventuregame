@@ -15,7 +15,7 @@
   },
   "use": {
     "action_name": "use",
-    "synonyms": [ "use", "apply" ]
+    "synonyms": [ "use", "apply", "pull" ]
   },
   "take": {
     "action_name": "take",

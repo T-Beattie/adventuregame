@@ -27,7 +27,7 @@ void CommandEngine::processActionMap()
 	}
 }
 
-void CommandEngine::processCommand(std::string command)
+std::string CommandEngine::processCommand(std::string command)
 {
 	// split this string by the first space only
 	size_t pos = command.find(' ');
@@ -57,7 +57,7 @@ void CommandEngine::processCommand(std::string command)
 		action = it->action_name;
 	}
 	else {
-		std::cout << "Instructions unclear! remember to use: <Action> <Target> i.e move north" << std::endl;
+		return "Instructions unclear! remember to use: <Action> <Target> i.e move north";
 	}
 
 	// action found, now process target
@@ -89,7 +89,7 @@ void CommandEngine::processCommand(std::string command)
 	// player need to check if it can move by checking the current cells event and seeing if it has blockers
 
 	std::map<std::string, std::string> blockers = player->current_cell->event.blocks_command;
-	bool current_cell_event_complete = player->current_cell->event.completed;
+	bool current_cell_event_complete = isCellCompleted();
 
 	//check blockers for action+target in key 
 	std::string full_command = action + "_" + target;
@@ -97,90 +97,167 @@ void CommandEngine::processCommand(std::string command)
 	bool is_blocked = blockers.contains(full_command) && !current_cell_event_complete;
 
 
+	if (action == "inventory") {
+		return player->showInventory();
+	}
+
+	if (action == "quit") {
+		*is_game_running = false;
+	}
+
 	if (action == "move" && !is_blocked) {
 		if (target == "north") {
-			player->move(north);
+			return player->move(north);
 		}
 		if (target == "south") {
-			player->move(south);
+			return player->move(south);
 		}
 		if (target == "east") {
-			player->move(east);
+			return player->move(east);
 		}
 		if (target == "west") {
-			player->move(west);
+			return player->move(west);
 		}
 	}
 	else if (action == "move" && is_blocked) {
-		std::cout << blockers[full_command] << std::endl;
+		return blockers[full_command];
 	}
 
 	if (action == "examine") {
-		// check examine action in current event
-		std::map<std::string, std::map<std::string, std::string>>  examine_map = player->current_cell->event.examine_actions;
-		bool has_target = examine_map.contains(target);
+		// check current cells interactab for the target
+
+		bool has_target = player->current_cell->event.interactables.count(target);
 		if (has_target) {
-			if (!player->current_cell->event.completed) {
-				std::cout << examine_map[target]["0"] << std::endl;
+			Interactable* interactable_object = &player->current_cell->event.interactables[target];
+			if (interactable_object->state == "0") {
+				player->focus = interactable_object;
+				return interactable_object->description["0"];
 			}
-			else if(player->current_cell->event.completed && examine_map[target].contains("1")){
-				std::cout << examine_map[target]["1"] << std::endl;
+			else if(interactable_object->state == "1" && interactable_object->description.contains("1")) {
+				player->focus = interactable_object;
+				return interactable_object->description["1"] ;
 			}
-			player->focus = target;
+			else if(interactable_object->type == "lever") {
+				player->focus = interactable_object;
+				return interactable_object->description["0"];
+			}
 		}
 		else {
-			std::cout << "There is no " << target << " that interests you in this area." << std::endl;
+			return "There is no " + target + " that interests you in this area.";
 		}
 	}
 
 	if (action == "take") {
 		//check if target exists in take map
-		std::map<std::string, std::string>* take_map = &player->current_cell->event.take_actions;
-		bool has_target = take_map->contains(target);
+		bool has_target = player->current_cell->event.interactables.count(target);
 		if (has_target) {
-			std::cout << "You take the " << target << " and store it in your bag." << std::endl;
-			// transfer the object from the event into the players inventory
-			player->inventory[target] = take_map->at(target);
-			take_map->erase(target);			
-			std::map<std::string, std::map<std::string, std::string>>*examine_map = &player->current_cell->event.examine_actions;
-			bool has_examine_target = examine_map->contains(target);
-			if (has_examine_target) {
-				examine_map->erase(target);
+			Interactable* interactable_object = &player->current_cell->event.interactables[target];
+			if (interactable_object->can_take && interactable_object->visible) {			
+
+				// transfer the object from the event into the players inventory
+				player->inventory[interactable_object->name] = *interactable_object;
+				player->current_cell->event.interactables.erase(interactable_object->name);
+
+				return "You take the " + target + " and store it in your bag.";
 			}
+			else if(!interactable_object->visible){
+				return "There is no " + target + " to take.";
+			}
+			else
+			{
+				return "You cant take that!";
+			}
+			
 		} else{
-			std::cout << "There is no " << target << " to take." << std::endl;
+			return "There is no " + target +" to take.";
 		}
 	}
 
-	if (action == "give") {
-		std::map<std::string, std::map<std::string, std::map<std::string, std::string>>>* give_map = &player->current_cell->event.give_actions;
-		bool has_target = give_map->contains(target);
-		bool target_in_inventory = player->inventory.count(target); 
+	if (action == "give") { 
+		// check if target is in focus and in inventory
+		bool target_in_focus = player->focus->give_actions.count(target);
+		bool target_in_inventory = player->inventory.count(target);
 
-		bool is_item_active;
-		std::istringstream(give_map->at(target).at(player->focus)["active"]) >> std::boolalpha >> is_item_active;
-		if (has_target && target_in_inventory && !is_item_active) {
-			// check focus
-			if (give_map->at(target).contains(player->focus)) {
-				std::cout << give_map->at(target).at(player->focus)["0"] << std::endl;
-				give_map->at(target).at(player->focus)["active"] = "true";
-				player->removeItemFromInventory(target);
-			}
+		if (target_in_focus && target_in_inventory) {
+			// display item 0 and change object state to 1
+			std::string answer = player->focus->give_actions.at(target)[player->focus->state];
+			player->focus->state = "1";
+			player->removeItemFromInventory(target);
+			return answer;
+		}else if (target_in_focus && !target_in_inventory && player->focus->state == "1") {
+			return player->focus->give_actions.at(target)[player->focus->state];
 		}
-		else if (has_target && is_item_active) {
-			std::cout << give_map->at(target).at(player->focus)["1"] << std::endl;
+		else {
+			return "You can't give " + player->focus->name + " that item" ;
 		}
-	}
-
-	if (action == "inventory") {
-		player->showInventory();
-	}
-
-	if (action == "quit"){
-		*is_game_running = false;
 	}
 
 	if (action == "use") {
+		// check if focus in targets use commands
+		bool has_target = player->current_cell->event.interactables.count(target);
+		bool target_in_inventory = player->inventory.count(target);
+		Interactable* interactable = nullptr;
+		if (has_target) {
+			if (player->current_cell->event.interactables.at(target).type == "normal")
+				interactable = player->focus;
+			else if (player->current_cell->event.interactables.at(target).type == "lever")
+				interactable = &player->current_cell->event.interactables.at(target);
+		}
+		if (target_in_inventory)
+			interactable = &player->inventory[target];
+		if (interactable != nullptr) {
+			bool focus_is_correct = false;
+			if(player->focus != nullptr)
+				focus_is_correct =interactable->use_actions.count(player->focus->name);
+			if (focus_is_correct) {
+				if (interactable->type == "normal") {
+					std::string answer = interactable->use_actions.at(player->focus->name)[player->focus->state];
+					if (interactable->use_actions.at(player->focus->name).count("give")) {
+						player->focus->state = "1";
+						std::string item_name = interactable->use_actions.at(player->focus->name)["give"];
+						interactable->use_actions.at(player->focus->name).erase("give");
+						player->inventory[item_name] = player->current_cell->event.interactables[item_name];
+						player->inventory[item_name].visible = true;
+						player->current_cell->event.interactables.erase(item_name);
+					}
+					return answer;
+				}				
+			}
+			else if (interactable->type == "lever") {
+
+				std::string answer = "You pull the lever:\n";
+				// cycle to next key here:
+				// get map keys as list. find index of current state in list, increment state by 1
+				std::map<std::string, std::string> state_map = interactable->use_actions.at("lever");
+				std::map<std::string, std::string>::iterator current_item_iterator;
+
+				if (!state_map.empty()) {
+					current_item_iterator = state_map.find(interactable->state);
+				}
+
+				if (current_item_iterator != state_map.end()) {
+					++current_item_iterator;
+					if (current_item_iterator == state_map.end()) {
+						// Wrap around to the beginning if at the end
+						current_item_iterator = state_map.begin();
+					}
+				}
+
+				if (current_item_iterator != state_map.end()) {
+					interactable->state = current_item_iterator->first;
+				}
+
+				return answer + interactable->use_actions.at("lever")[interactable->state];
+			}
+			else {
+				return "You can't use your " + target + " on " + interactable->name;
+			}
+		}
+	}
+
+	return "";
+
+	/*if (action == "use") {
 		std::map<std::string, std::map<std::string, std::map<std::string, std::string>>>* use_map = &player->current_cell->event.use_actions;
 		bool has_target = use_map->contains(target);
 		bool target_in_inventory = player->inventory.count(target);
@@ -215,6 +292,21 @@ void CommandEngine::processCommand(std::string command)
 		else if (has_target && !target_in_inventory) {
 			std::cout << "You do not have the item: " << target << ", in your inventory!" << std::endl;
 		}
+	}*/
+}
+
+const bool CommandEngine::isCellCompleted()
+{
+	// cycle through current cells completion criteria and check the state of things
+	Event current_event = player->current_cell->event;
+	for (auto& item : current_event.completed)
+	{
+		std::string name = item.first;
+		std::string state = item.second;
+
+		if (player->current_cell->event.interactables[name].state != state)
+			return false;
 	}
+	return true;
 }
 
