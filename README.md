@@ -25,7 +25,15 @@ Here are a list of example commands
 | quit | quit, exit | Exits the game  | quit  |
 | help | help | Displays this information   | help  |
 
+## Ideal Updates 
+A list of features/updates that would be implemented if I could dedicate more time
 
+1. Rework the basic_map.json -  It is quite bulky and would get more bulky as time went on. I'm sure there are more elegant ways to store the data and nicer data structure to use
+2. Rework how the messages display on screen - Currently I dont believe its the most effective way, passing the results of the command engine back to the main loop. There is a lot of potential for missed messages. Maybe an answer builder singleton
+3. A more extensive command structure -  Currently it only takes two arguments as a command, I'd like to extend it to include arguments for extended functionality, such as use <target> <object>
+4. Implement Characters - add characters that you could have conversations with and get clues on where to go and what to do
+5. An RPG system - Add in health and experience, with stats. Complete with a fighting system with monsters   
+   
 
 ## License
 
