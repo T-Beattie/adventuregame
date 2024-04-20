@@ -60,6 +60,7 @@ A list of features/updates that would be implemented if I could dedicate more ti
 5. Adjust the descriptions of each Cell to be dynamic, where if the user alters the state of the Cell its reflected in the description.
 6. Implement Characters - add characters that you could have conversations with and get clues on where to go and what to do.
 7. An RPG system - Add in health and experience, with stats. Complete with a fighting system with monsters.
+8. A ASCII map - Some test users had trouble knowing where they were in the map. Having a map display to allow players to see the general layout would help them traverse the environment.
 
    
 ## License
