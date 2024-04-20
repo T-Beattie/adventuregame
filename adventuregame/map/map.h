@@ -2,6 +2,7 @@
 #define MAP_MAP_H_
 
 #include <map>
+#include <list>
 #include<string>
 #include <fstream>
 #include <iostream>
