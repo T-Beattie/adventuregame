@@ -50,7 +50,7 @@ const std::string Player::ShowInventory()
 	std::map<std::string, Interactable>::iterator it;
 	for (it = inventory.begin(); it != inventory.end(); it++)
 	{
-		output_string += count + ". "  + it->first + " - " + it->second.description["0"] + "\n";
+		output_string += std::to_string(count) + ". "  + it->first + " - " + it->second.description["0"] + "\n";
 		++count;
 	}
 	output_string += "---------------------\n";

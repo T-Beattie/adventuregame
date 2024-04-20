@@ -454,7 +454,7 @@
           "broken idol": {
             "type": "normal",
             "description": {
-              "0": "A broken idol, its hard to make out what it is, maybe a cat?"
+              "0": "A broken idol, its hard to make out what it is, maybe a sun?"
             },
             "state": "0",
             "can_take": true,

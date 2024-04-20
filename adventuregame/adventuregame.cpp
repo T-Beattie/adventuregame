@@ -58,7 +58,7 @@ static void CompleteGame(Player* player, CommandEngine* ce) {
 	player->Move(east);
 	player->Move(north);
 	ce->processCommand("examine pedestal");
-	ce->processCommand("use stone disk");
+	ce->processCommand("give stone disk");
 	player->Move(north);
 	ce->processCommand("examine door");
 	ce->processCommand("give left relic");
@@ -76,7 +76,7 @@ int main()
 	Player player("Bob", "An Adventurer", &new_map);
 	CommandEngine commandEngine(&player, &game_running);	
 
-	// CompleteGame(&player, &commandEngine);                                   // Uncomment this to do a complete run through of the game without input
+	//CompleteGame(&player, &commandEngine);                                   // Uncomment this to do a complete run through of the game without input
 
 	// Display the starting Message for the map
 	int console_width = 100; 
